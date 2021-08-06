@@ -12,7 +12,7 @@ movieSelect.addEventListener('click', (e) => {
 });
 
 const myArray = ['bob', 'john', 'bob', 'john'];
-console.log(myarray[2]);
+console.log(myArray[2]);
 
 container.addEventListener('click', (e) => {
   const selectedMoviePrice =
