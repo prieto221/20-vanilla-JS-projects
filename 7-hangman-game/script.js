@@ -16,16 +16,19 @@ console.log(selectedWord);
 const correctLetters = [];
 const wrongLetters = [];
 
-// Show hidden word
+// show hidden word
 function displayWord() {
   wordEl.innerHTML = `
   ${selectedWord
     .split('')
-    .map(letter => `
+    .map(
+      (letter) => `
       <span class="letter">
         ${correctLetters.includes(letter) ? letter : ''}
       </span>
-    `).join('')  }
+    `
+    )
+    .join('')}
   `;
 
   const innerWord = wordEl.innerText.replace(/\n/g, '');
@@ -35,15 +38,13 @@ function displayWord() {
   }
 }
 
-
-
 // Update the wrong letters
-function updateWrongLettersEl () {
+function updateWrongLettersEl() {
   console.log('update wrong');
   // Update wrong letters display
   wrongLettersEl.innerHTML = `
     ${wrongLetters.length > 0 ? '<p>Wrong</p>' : ''}
-    ${wrongLetters.map(letter => `<span>${letter}</span>`)}
+    ${wrongLetters.map((letter) => `<span>${letter}</span>`)}
   `;
 
   // Add body part
@@ -55,7 +56,7 @@ function updateWrongLettersEl () {
       part.style.display = 'none';
     }
   });
-  
+
   // Check if lost
   if (wrongLetters.length === figureParts.length) {
     finalMessage.innerText = 'You Lost!';
@@ -64,20 +65,19 @@ function updateWrongLettersEl () {
 }
 
 // Show notification
-function showNotification () {
+function showNotification() {
   notification.classList.add('show');
 
   setTimeout(() => {
     notification.classList.remove('show');
-  },2000)
+  }, 2000);
 }
 
-
 // Keydown letter press
-window.addEventListener('keydown', e => {
-  if(e.keyCode >= 65 && e.keyCode <= 90) {
+window.addEventListener('keydown', (e) => {
+  if (e.keyCode >= 65 && e.keyCode <= 90) {
     const letter = e.key;
-    if(selectedWord.includes(letter)) {
+    if (selectedWord.includes(letter)) {
       if (!correctLetters.includes(letter)) {
         correctLetters.push(letter);
         displayWord();
@@ -86,15 +86,15 @@ window.addEventListener('keydown', e => {
         showNotification();
       }
     } else {
-        if (!wrongLetters.includes(letter)) {
-          wrongLetters.push(letter); 
+      if (!wrongLetters.includes(letter)) {
+        wrongLetters.push(letter);
 
-          updateWrongLettersEl();
-        } else {
-          showNotification();
-        }
+        updateWrongLettersEl();
+      } else {
+        showNotification();
       }
     }
+  }
 });
 
 // Restart game and play again
@@ -109,6 +109,6 @@ playAgainBtn.addEventListener('click', () => {
   updateWrongLettersEl();
 
   popup.style.display = 'none';
-})
+});
 
 displayWord();
